@@ -1,0 +1,35 @@
+{
+  "section_id": "vectors-as-arrows",
+  "title": "Wind-Assisted Sailboat Navigation Challenge",
+  "status": "building",
+  "detail": "writing spec and code",
+  "summary": "",
+  "verify_passed": null,
+  "is_revision": false,
+  "registered": false,
+  "issues": [],
+  "sdk_session_id": "6b86c402-e88a-48e8-8578-9b563083bbbd",
+  "created_at": 1784178408.376889,
+  "updated_at": 1784178409.30971,
+  "payload": {
+    "section_id": "vectors-as-arrows",
+    "learning_objective": "Understand vectors as geometric objects with magnitude and direction that can be added and scaled. The aha moment is realizing that sailing directly into the wind is impossible, but you can reach upwind destinations by choosing angled approaches where your propulsion vector combines with the wind to produce a net motion toward the target\u2014vectors don't just add numerically, their geometric relationship determines possibilities.",
+    "mini_spec": {
+      "title": "Wind-Assisted Sailboat Navigation Challenge",
+      "narrative_wrapper": "You're sailing a boat from island to island. A strong wind vector (shown as a large arrow) constantly pushes your boat, but you can rotate your sail to any angle to add your own propulsion vector. You must orient your sail direction and choose your sail power to reach the target island, working with or against the wind.",
+      "manipulated_variable": "The angle of the sail (rotating it in a full circle around the boat) and the sail tension setting (controlling the magnitude of the boat's self-propulsion vector), which together define the boat's propulsion vector that adds to the constant wind vector",
+      "primary_visual_feedback": "As the sail rotates, a propulsion arrow extends from the boat in the sail's direction, its length controlled by sail tension; simultaneously, a resultant motion arrow (different color) shows the vector sum of wind plus propulsion, pointing where the boat will actually move",
+      "causal_chain_exposed": "Three distinct arrows are always visible from the boat: the fixed wind vector (blue), the rotating propulsion vector (green), and the resultant velocity vector (red) showing their sum; the parallelogram completing these vectors draws in faint dashed lines",
+      "trace_strategy": "When the student commits to a choice, the boat animates along the resultant vector, leaving a wake trail; multiple attempt trails accumulate showing near-misses, creating a radial pattern that reveals how different sail angles produce different outcomes",
+      "aha_moment": "Realizing that sailing directly into the wind is impossible (no sail angle works), but you can reach upwind destinations by choosing angled approaches where your propulsion vector combines with the wind to produce a net motion toward the target\u2014vectors don't just add numerically, their geometric relationship determines possibilities",
+      "lens": "goal_constraint",
+      "novelty": 0.866,
+      "rubric_score": 5,
+      "recommended": true
+    },
+    "target_misconception": "Vectors are just lists of numbers rather than geometric/physical objects with direction and magnitude",
+    "audience": "University students with no prior linear algebra knowledge",
+    "section_context": "Opening section of a 6-part lesson on Hilbert spaces. This is where we build concrete geometric intuition before any abstraction. Students will later need this foundation for understanding vector spaces, inner products, and eventually infinite-dimensional Hilbert spaces.",
+    "design_brief": "This lesson builds from concrete vectors to abstract Hilbert spaces. The shared domain model is in src/data/model.ts with vector operations (addVec2, scaleVec2, magnitudeVec2, fromPolar, etc.). All sections must use the soft muted color palette (teal #62D0AD for primary, indigo #8E90F5 for secondary, amber #F7B23B for highlights). The tone is friendly and exploratory, helping university students with no prior linear algebra background build genuine mathematical intuition."
+  }
+}

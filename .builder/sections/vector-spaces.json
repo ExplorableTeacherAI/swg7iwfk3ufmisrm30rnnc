@@ -1,0 +1,35 @@
+{
+  "section_id": "vector-spaces",
+  "title": "Before-After Surgery: Axiom Healing",
+  "status": "building",
+  "detail": "writing spec and code",
+  "summary": "",
+  "verify_passed": null,
+  "is_revision": false,
+  "registered": false,
+  "issues": [],
+  "sdk_session_id": "37ba4790-20e3-4306-ac3e-008ce2548864",
+  "created_at": 1784178439.781877,
+  "updated_at": 1784178440.643729,
+  "payload": {
+    "section_id": "vector-spaces",
+    "learning_objective": "Understand vector space axioms by seeing what breaks when rules are violated. The aha moment is realizing that certain carefully chosen vector values cause spectacular contradictions in the broken space (like proving 0=1) while the healed space handles them gracefully, revealing that axioms aren't about making math 'neat' but about preventing logical impossibilities.",
+    "mini_spec": {
+      "title": "Before-After Surgery: Axiom Healing",
+      "narrative_wrapper": "The right space starts broken: vectors behave erratically when you operate on them. The left space shows the 'healed' version where a single axiom has been surgically added back. You inject specific test cases (pick specific vectors and operations) into BOTH spaces simultaneously and watch the left space give consistent answers while the right space gives contradictory ones. The contrast shows exactly what the missing axiom prevented.",
+      "manipulated_variable": "The specific test case being injected: the student picks coordinates for specific vectors (v1, v2) and scalar values (a, b) that will be used in a predetermined axiom-testing expression, changing which computational scenario both spaces must handle",
+      "primary_visual_feedback": "Matching input vectors appear in both spaces simultaneously, then the operation animates step-by-step in parallel, with the right space reaching an equation like 'result A' \u2260 'result B' highlighted in red while the left shows 'result A' = 'result B' in green",
+      "causal_chain_exposed": "Equation panels below each space show the symbolic manipulation step-by-step, with each step labeled by which axiom justifies it; the right space shows a red 'CANNOT PROCEED' label at the step requiring the missing axiom",
+      "trace_strategy": "A 'contradiction gallery' accumulates at the bottom: each test case that exposed a problem gets saved as a thumbnail showing the contradictory results side-by-side, building evidence of the axiom's necessity",
+      "aha_moment": "Certain carefully chosen vector values cause spectacular contradictions in the broken space (like proving 0=1) while the healed space handles them gracefully, revealing that axioms aren't about making math 'neat' but about preventing logical impossibilities",
+      "lens": "comparison",
+      "novelty": 0.858,
+      "rubric_score": 5,
+      "recommended": true
+    },
+    "target_misconception": "Vector space axioms are arbitrary rules rather than necessary conditions for consistent vector operations",
+    "audience": "University students with no prior linear algebra knowledge",
+    "section_context": "Second section, following the sailboat vectors introduction. Students now understand vectors as arrows with magnitude and direction. This section abstracts from concrete vectors to the rules that define a vector space.",
+    "design_brief": "This lesson builds from concrete vectors to abstract Hilbert spaces. The shared domain model is in src/data/model.ts with vector operations (addVec2, scaleVec2, isCommutative, isDistributive, etc.). Use soft muted colors: teal #62D0AD for the healed/working space, red #ef4444 for contradictions, green #22c55e for success. The tone is friendly and exploratory."
+  }
+}

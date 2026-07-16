@@ -1,0 +1,114 @@
+{
+  "sectionId": "vectors-as-arrows",
+  "learningObjective": "Understand vectors as geometric objects with magnitude and direction that can be added and scaled. The aha moment is realizing that sailing directly into the wind is impossible, but you can reach upwind destinations by choosing angled approaches where your propulsion vector combines with the wind to produce a net motion toward the target—vectors don't just add numerically, their geometric relationship determines possibilities.",
+  "ahaMoment": "Realizing that sailing directly into the wind is impossible (no sail angle works), but you can reach upwind destinations by choosing angled approaches where your propulsion vector combines with the wind to produce a net motion toward the target—vectors don't just add numerically, their geometric relationship determines possibilities",
+  "miniSpec": {
+    "title": "Wind-Assisted Sailboat Navigation Challenge",
+    "narrative_wrapper": "You're sailing a boat from island to island. A strong wind vector (shown as a large arrow) constantly pushes your boat, but you can rotate your sail to any angle to add your own propulsion vector. You must orient your sail direction and choose your sail power to reach the target island, working with or against the wind.",
+    "manipulated_variable": "The angle of the sail (rotating it in a full circle around the boat) and the sail tension setting (controlling the magnitude of the boat's self-propulsion vector), which together define the boat's propulsion vector that adds to the constant wind vector",
+    "primary_visual_feedback": "As the sail rotates, a propulsion arrow extends from the boat in the sail's direction, its length controlled by sail tension; simultaneously, a resultant motion arrow (different color) shows the vector sum of wind plus propulsion, pointing where the boat will actually move",
+    "causal_chain_exposed": "Three distinct arrows are always visible from the boat: the fixed wind vector (blue), the rotating propulsion vector (green), and the resultant velocity vector (red) showing their sum; the parallelogram completing these vectors draws in faint dashed lines",
+    "trace_strategy": "When the student commits to a choice, the boat animates along the resultant vector, leaving a wake trail; multiple attempt trails accumulate showing near-misses, creating a radial pattern that reveals how different sail angles produce different outcomes",
+    "aha_moment": "Realizing that sailing directly into the wind is impossible (no sail angle works), but you can reach upwind destinations by choosing angled approaches where your propulsion vector combines with the wind to produce a net motion toward the target—vectors don't just add numerically, their geometric relationship determines possibilities",
+    "lens": "goal_constraint",
+    "novelty": 0.866,
+    "rubric_score": 5,
+    "recommended": true
+  },
+  "modelVariables": {
+    "vectors_sailAngle": "angle of the sail/propulsion vector in degrees (0-360), student-dragged via rotating handle",
+    "vectors_sailPower": "magnitude of the propulsion vector (0-3), student-controlled via slider or scrubble",
+    "vectors_windX": "x-component of the fixed wind vector",
+    "vectors_windY": "y-component of the fixed wind vector",
+    "vectors_propulsionX": "derived: x-component of propulsion vector = sailPower * cos(sailAngle)",
+    "vectors_propulsionY": "derived: y-component of propulsion vector = sailPower * sin(sailAngle)",
+    "vectors_resultantX": "derived: x-component of resultant = windX + propulsionX",
+    "vectors_resultantY": "derived: y-component of resultant = windY + propulsionY",
+    "vectors_resultantMag": "derived: magnitude of resultant vector",
+    "vectors_boatX": "current x-position of the boat",
+    "vectors_boatY": "current y-position of the boat",
+    "vectors_targetReached": "derived: boolean, true when boat is within threshold of target island",
+    "vectors_isAnimating": "boolean: whether boat is currently moving along resultant path"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, the boat is not at the target island and resultant does not point directly at target - the puzzle is unsolved",
+      "expect": [
+        { "var": "vectors_targetReached", "op": "==", "value": false }
+      ],
+      "visualCheck": "Boat starts away from target island, three vectors visible from boat, target island clearly marked"
+    },
+    {
+      "id": "rotating-sail-changes-propulsion-direction",
+      "description": "When sail angle changes, the propulsion vector rotates accordingly",
+      "setup": { "vectors_sailAngle": 0, "vectors_sailPower": 2 },
+      "action": { "var": "vectors_sailAngle", "to": 90 },
+      "expect": [
+        { "var": "vectors_propulsionX", "op": "approx", "value": 0, "tolerance": 0.1 },
+        { "var": "vectors_propulsionY", "op": "approx", "value": 2, "tolerance": 0.1 }
+      ],
+      "visualCheck": "Green propulsion arrow rotates from pointing right to pointing up"
+    },
+    {
+      "id": "sail-power-scales-propulsion-magnitude",
+      "description": "Increasing sail power increases propulsion vector length",
+      "setup": { "vectors_sailAngle": 45, "vectors_sailPower": 1 },
+      "action": { "var": "vectors_sailPower", "to": 3 },
+      "expect": [
+        { "var": "vectors_propulsionX", "op": ">", "value": 2 },
+        { "var": "vectors_propulsionY", "op": ">", "value": 2 }
+      ],
+      "visualCheck": "Green propulsion arrow grows longer while maintaining its direction"
+    },
+    {
+      "id": "resultant-is-vector-sum",
+      "description": "The resultant vector equals wind plus propulsion (the core vector addition concept)",
+      "setup": { "vectors_sailAngle": 90, "vectors_sailPower": 2, "vectors_windX": -2, "vectors_windY": 0 },
+      "action": { "var": "vectors_sailAngle", "to": 90 },
+      "expect": [
+        { "var": "vectors_resultantX", "op": "approx", "value": -2, "tolerance": 0.1 },
+        { "var": "vectors_resultantY", "op": "approx", "value": 2, "tolerance": 0.1 }
+      ],
+      "visualCheck": "Red resultant arrow points diagonally up-left, parallelogram dashed lines show vector addition geometry"
+    },
+    {
+      "id": "directly-into-wind-cancels",
+      "description": "When propulsion exactly opposes wind of same magnitude, resultant is zero (the aha moment for 'impossible' direction)",
+      "setup": { "vectors_windX": -2, "vectors_windY": 0, "vectors_sailAngle": 180, "vectors_sailPower": 2 },
+      "action": { "var": "vectors_sailPower", "to": 2 },
+      "expect": [
+        { "var": "vectors_resultantMag", "op": "approx", "value": 0, "tolerance": 0.2 }
+      ],
+      "visualCheck": "Resultant arrow shrinks to near-zero; boat cannot move directly upwind"
+    },
+    {
+      "id": "angled-approach-enables-upwind-progress",
+      "description": "An angled sail allows net motion with upwind component even against the wind",
+      "setup": { "vectors_windX": -2, "vectors_windY": 0, "vectors_sailAngle": 120, "vectors_sailPower": 3 },
+      "action": { "var": "vectors_sailAngle", "to": 120 },
+      "expect": [
+        { "var": "vectors_resultantX", "op": "<", "value": 0 },
+        { "var": "vectors_resultantY", "op": ">", "value": 0 }
+      ],
+      "visualCheck": "Resultant points up-left, showing net motion that has both leftward and upward components despite wind blowing right-to-left"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "propulsion-magnitude-matches-power",
+      "description": "Propulsion vector magnitude always equals sail power setting",
+      "expect": [
+        { "expr": "abs(sqrt(vectors_propulsionX * vectors_propulsionX + vectors_propulsionY * vectors_propulsionY) - vectors_sailPower) < 0.1" }
+      ]
+    },
+    {
+      "id": "resultant-is-always-sum",
+      "description": "Resultant always equals wind + propulsion (vector addition law)",
+      "expect": [
+        { "expr": "abs(vectors_resultantX - (vectors_windX + vectors_propulsionX)) < 0.01" },
+        { "expr": "abs(vectors_resultantY - (vectors_windY + vectors_propulsionY)) < 0.01" }
+      ]
+    }
+  ]
+}

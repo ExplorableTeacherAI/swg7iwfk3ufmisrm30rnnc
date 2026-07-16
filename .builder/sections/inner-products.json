@@ -1,0 +1,35 @@
+{
+  "section_id": "inner-products",
+  "title": "Reverse-Engineer the Inner Product Formula",
+  "status": "building",
+  "detail": "writing spec and code",
+  "summary": "",
+  "verify_passed": null,
+  "is_revision": false,
+  "registered": false,
+  "issues": [],
+  "sdk_session_id": "517c7f37-06c3-4d54-a057-ed42d18f476f",
+  "created_at": 1784178489.846324,
+  "updated_at": 1784178490.755347,
+  "payload": {
+    "section_id": "inner-products",
+    "learning_objective": "Understand inner products as a generalization of dot products that measure angles and lengths in abstract spaces. The aha moment is realizing that the same pair of vectors can have ANY angle between them depending on how you define the inner product \u2014 the vectors don't determine the geometry, the inner product does. Measurement itself is a choice, not an inherent property.",
+    "mini_spec": {
+      "title": "Reverse-Engineer the Inner Product Formula",
+      "narrative_wrapper": "The student sees two fixed vectors in standard Euclidean space and a target angle arc they want between them. They directly drag the angle arc to widen or narrow it, and the system reveals what inner product formula (displayed as a matrix or weighting scheme) would make those vectors have exactly that angle. As they explore different target angles, they discover that changing how you measure doesn't change the vectors themselves\u2014only the geometry imposed on the space.",
+      "manipulated_variable": "The target angle measurement between two fixed vectors\u2014student drags the angle arc itself to set a desired angle value, which inversely determines what inner product definition must be used",
+      "primary_visual_feedback": "As the angle arc is dragged wider or narrower, a matrix representation or set of weight coefficients updates in real-time alongside the arc, showing the inner product formula that produces exactly this angle; the arc snaps smoothly to the dragged position with numerical degree/radian readout",
+      "causal_chain_exposed": "Three live quantities appear: (1) the fixed vector components never change, (2) the inner product value \u27e8u,v\u27e9 updates numerically, (3) the norm values ||u|| and ||v|| under the current inner product update, and (4) the formula cos(\u03b8) = \u27e8u,v\u27e9/(||u|| ||v||) shows all substituted values leading to the target angle",
+      "trace_strategy": "Previous angle positions leave faint ghost arcs with their corresponding inner product formulas labeled nearby, creating a visual catalog of 'different geometries on the same space' that accumulates as the student explores different target angles",
+      "aha_moment": "The same pair of vectors can have ANY angle between them depending on how you define the inner product\u2014the vectors don't determine the geometry, the inner product does. Students realize measurement itself is a choice, not an inherent property.",
+      "lens": "inversion",
+      "novelty": 0.833,
+      "rubric_score": 4.82,
+      "recommended": true
+    },
+    "target_misconception": "Inner products are just dot products - missing the abstract definition that allows different notions of angle and length",
+    "audience": "University students with no prior linear algebra knowledge",
+    "section_context": "Third section, following vector spaces. Students understand vectors as arrows and know vector space axioms. Now we introduce inner products to measure angles and lengths, preparing for the norm and distance concepts needed for completeness.",
+    "design_brief": "This lesson builds from concrete vectors to abstract Hilbert spaces. The shared domain model is in src/data/model.ts with inner product operations (dotProduct, angleBetween, norm, etc.). Use soft muted colors: teal #62D0AD for vectors, indigo #8E90F5 for the angle arc, amber #F7B23B for highlights. Show the mathematical formulas clearly with color-coded terms."
+  }
+}

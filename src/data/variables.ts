@@ -78,6 +78,322 @@ export interface VariableDefinition {
  */
 export const variableDefinitions: Record<string, VariableDefinition> = {
     // ========================================
+    // SECTION: vectors-as-arrows
+    // ========================================
+
+    vectors_sailAngle: {
+        defaultValue: 45,
+        type: 'number',
+        label: 'Sail Angle',
+        description: 'Angle of the sail/propulsion vector in degrees (0-360)',
+        unit: '°',
+        min: 0,
+        max: 360,
+        step: 1,
+        color: '#62D0AD',
+    },
+    vectors_sailPower: {
+        defaultValue: 1.5,
+        type: 'number',
+        label: 'Sail Power',
+        description: 'Magnitude of the propulsion vector (0-3)',
+        min: 0,
+        max: 3,
+        step: 0.1,
+        color: '#62D0AD',
+    },
+    vectors_windX: {
+        defaultValue: -2,
+        type: 'number',
+        label: 'Wind X',
+        description: 'X-component of the fixed wind vector',
+        min: -3,
+        max: 3,
+        step: 0.1,
+        color: '#8E90F5',
+    },
+    vectors_windY: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Wind Y',
+        description: 'Y-component of the fixed wind vector',
+        min: -3,
+        max: 3,
+        step: 0.1,
+        color: '#8E90F5',
+    },
+    vectors_propulsionX: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Propulsion X',
+        description: 'Derived: X-component of propulsion vector',
+        color: '#62D0AD',
+    },
+    vectors_propulsionY: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Propulsion Y',
+        description: 'Derived: Y-component of propulsion vector',
+        color: '#62D0AD',
+    },
+    vectors_resultantX: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Resultant X',
+        description: 'Derived: X-component of resultant = wind + propulsion',
+        color: '#F7B23B',
+    },
+    vectors_resultantY: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Resultant Y',
+        description: 'Derived: Y-component of resultant = wind + propulsion',
+        color: '#F7B23B',
+    },
+    vectors_resultantMag: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Resultant Magnitude',
+        description: 'Derived: magnitude of resultant vector',
+        color: '#F7B23B',
+    },
+    vectors_boatX: {
+        defaultValue: 280,
+        type: 'number',
+        label: 'Boat X',
+        description: 'Current X-position of the boat in SVG coords',
+    },
+    vectors_boatY: {
+        defaultValue: 200,
+        type: 'number',
+        label: 'Boat Y',
+        description: 'Current Y-position of the boat in SVG coords',
+    },
+    vectors_targetReached: {
+        defaultValue: false,
+        type: 'boolean',
+        label: 'Target Reached',
+        description: 'True when boat is within threshold of target island',
+    },
+    vectors_isAnimating: {
+        defaultValue: false,
+        type: 'boolean',
+        label: 'Is Animating',
+        description: 'Whether boat is currently moving along resultant path',
+    },
+    vectors_showParallelogram: {
+        defaultValue: true,
+        type: 'boolean',
+        label: 'Show Parallelogram',
+        description: 'Whether to show the parallelogram rule dashed lines',
+    },
+    answer_vectors_resultant_type: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Answer: Resultant Type',
+        description: 'Student answer for what the resultant vector represents',
+        placeholder: '???',
+        color: '#8E90F5',
+    },
+
+    // ========================================
+    // SECTION: vector-spaces
+    // ========================================
+
+    // Test vector v1 coordinates
+    vs_v1_x: {
+        defaultValue: 2,
+        type: 'number',
+        label: 'v₁ x-coordinate',
+        description: 'x-coordinate of the first test vector',
+        min: -4,
+        max: 4,
+        step: 0.5,
+        color: '#62D0AD',
+    },
+    vs_v1_y: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'v₁ y-coordinate',
+        description: 'y-coordinate of the first test vector',
+        min: -4,
+        max: 4,
+        step: 0.5,
+        color: '#62D0AD',
+    },
+
+    // Test vector v2 coordinates
+    vs_v2_x: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'v₂ x-coordinate',
+        description: 'x-coordinate of the second test vector',
+        min: -4,
+        max: 4,
+        step: 0.5,
+        color: '#8E90F5',
+    },
+    vs_v2_y: {
+        defaultValue: 2,
+        type: 'number',
+        label: 'v₂ y-coordinate',
+        description: 'y-coordinate of the second test vector',
+        min: -4,
+        max: 4,
+        step: 0.5,
+        color: '#8E90F5',
+    },
+
+    // Scalar for axiom tests
+    vs_scalar: {
+        defaultValue: 2,
+        type: 'number',
+        label: 'Scalar c',
+        description: 'Scalar multiplier for testing distributive axiom',
+        min: -3,
+        max: 3,
+        step: 0.5,
+        color: '#F7B23B',
+    },
+
+    // Animation control
+    vs_step: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Animation Step',
+        description: 'Current step in the axiom test animation (0-4)',
+        min: 0,
+        max: 4,
+        step: 1,
+    },
+
+    vs_playing: {
+        defaultValue: false,
+        type: 'boolean',
+        label: 'Playing',
+        description: 'Whether the step-by-step animation is auto-playing',
+    },
+
+    // Question answer
+    vs_answer_why_axioms: {
+        defaultValue: '',
+        type: 'select',
+        label: 'Why Axioms Matter',
+        description: 'Student answer for why axioms are necessary',
+        placeholder: '???',
+        correctAnswer: 'prevent contradictions',
+        options: ['make math look nice', 'prevent contradictions', 'confuse students', 'are just tradition'],
+        color: '#62D0AD',
+    },
+
+    // ========================================
+    // SECTION: inner-products
+    // ========================================
+
+    // Target angle the student drags to set
+    ip_targetAngle: {
+        defaultValue: 75,
+        type: 'number',
+        label: 'Target Angle',
+        description: 'Target angle between vectors in degrees, dragged by student',
+        unit: '°',
+        min: 30,
+        max: 150,
+        step: 1,
+        color: '#8E90F5',
+    },
+
+    // Derived: weight coefficients for the inner product matrix [[a, 0], [0, b]]
+    ip_weightA: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'Weight a',
+        description: 'Derived: weight coefficient a in the inner product matrix',
+        color: '#F7B23B',
+    },
+    ip_weightB: {
+        defaultValue: 1,
+        type: 'number',
+        label: 'Weight b',
+        description: 'Derived: weight coefficient b in the inner product matrix',
+        color: '#F7B23B',
+    },
+
+    // Derived: inner product value
+    ip_innerProductValue: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'Inner Product',
+        description: 'Derived: the inner product ⟨u,v⟩ under current weighting',
+        color: '#62D0AD',
+    },
+
+    // Derived: norms under current inner product
+    ip_normU: {
+        defaultValue: 0,
+        type: 'number',
+        label: '||u||',
+        description: 'Derived: norm of u under current inner product',
+        color: '#62D0AD',
+    },
+    ip_normV: {
+        defaultValue: 0,
+        type: 'number',
+        label: '||v||',
+        description: 'Derived: norm of v under current inner product',
+        color: '#62D0AD',
+    },
+
+    // Derived: cos(θ)
+    ip_cosTheta: {
+        defaultValue: 0,
+        type: 'number',
+        label: 'cos(θ)',
+        description: 'Derived: cos(θ) = ⟨u,v⟩/(||u|| ||v||)',
+        color: '#8E90F5',
+    },
+
+    // Ghost angles for trace
+    ip_ghostAngles: {
+        defaultValue: [],
+        type: 'array',
+        label: 'Ghost Angles',
+        description: 'Array of previously visited angle positions for the trace',
+    },
+
+    // Standard Euclidean angle for reference
+    ip_euclideanAngle: {
+        defaultValue: 37,
+        type: 'number',
+        label: 'Euclidean Angle',
+        description: 'Standard Euclidean angle between u and v (for reference)',
+        color: '#64748B',
+    },
+
+    // Question answer
+    ip_answer_whatChanges: {
+        defaultValue: '',
+        type: 'select',
+        label: 'What Changes?',
+        description: 'Student answer for what changes when the inner product changes',
+        placeholder: '???',
+        correctAnswer: 'the geometry',
+        options: ['the vectors', 'the geometry', 'nothing', 'the dimensions'],
+        color: '#8E90F5',
+    },
+
+    // Question answer for orthogonal
+    ip_answer_orthogonal: {
+        defaultValue: '',
+        type: 'text',
+        label: 'Orthogonal Angle',
+        description: 'Student answer for the angle where vectors become orthogonal',
+        placeholder: '???',
+        correctAnswer: '90',
+        color: '#62D0AD',
+    },
+
+    // ========================================
     // ADD YOUR VARIABLES HERE
     // ========================================
 

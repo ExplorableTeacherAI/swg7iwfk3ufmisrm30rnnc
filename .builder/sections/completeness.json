@@ -1,0 +1,35 @@
+{
+  "section_id": "completeness",
+  "title": "Approximation Commitment Timeline Scrubber",
+  "status": "queued",
+  "detail": "",
+  "summary": "",
+  "verify_passed": null,
+  "is_revision": false,
+  "registered": false,
+  "issues": [],
+  "sdk_session_id": null,
+  "created_at": 1784178624.394463,
+  "updated_at": 1784178624.394475,
+  "payload": {
+    "section_id": "completeness",
+    "learning_objective": "Understand completeness through Cauchy sequences and why having no gaps matters. The aha moment is discovering that incomplete spaces aren't missing sequences \u2014 they're missing the endpoints those sequences deterministically specify. Every Cauchy sequence is trying to commit to a specific limiting value digit-by-digit, and completeness is whether the space honors all those commitments or abandons some partway through.",
+    "mini_spec": {
+      "title": "Approximation Commitment Timeline Scrubber",
+      "narrative_wrapper": "The student scrubs through commitment time\u2014the moment-by-moment process of a sequence \"locking in\" its decimal digits. Each time step represents the sequence committing to one more digit of precision. They watch multiple sequences simultaneously commit digits at different rates, and discover some sequences finish their commitment process (all digits determined) while others get stuck with infinite undecidable digits that aren't available in their space.",
+      "manipulated_variable": "The commitment timestamp representing how far into the decimal-determination process each sequence has progressed\u2014student scrubs through a temporal slider that advances all sequences' digit commitment in sync, controlling which decimal position is currently being locked in",
+      "primary_visual_feedback": "Decimal representations appear digit-by-digit as the student advances time, with committed digits turning from gray (uncertain) to solid black. A \"commitment status\" bar fills left-to-right as more decimal places lock in. In incomplete spaces, some sequences' bars halt and display \"cannot commit: value not in space\" when the emerging pattern points to an irrational.",
+      "causal_chain_exposed": "For each decimal position: the range of possible values that digit could take given prior commitments (shown as shrinking intervals), the actual value the sequence's limit would require (displayed in a comparison box), and whether that required value creates a valid number in the current space (color-coded badge). These update as each new digit position is reached, showing exactly when and why incomplete spaces fail to accommodate the commitment.",
+      "trace_strategy": "A scrolling ledger on the side shows all previously committed digits with timestamps, like a commitment log book. Students can click any past timestamp to jump back to that commitment moment and see the decision point again. Incomplete space commitment failures are marked with alert icons at their failure timestamp, creating a historical record of where things went wrong.",
+      "aha_moment": "Students discover that incomplete spaces aren't missing sequences\u2014they're missing the endpoints those sequences deterministically specify. Every Cauchy sequence is trying to commit to a specific limiting value digit-by-digit, and completeness is whether the space honors all those commitments or abandons some partway through. The sequence isn't the problem; the space's population gaps are.",
+      "lens": "temporal",
+      "novelty": 0.9,
+      "rubric_score": 5,
+      "recommended": true
+    },
+    "target_misconception": "Completeness is just a technical condition rather than essential for convergence \u2014 students don't appreciate that without completeness, limits can 'fall through the cracks'",
+    "audience": "University students with no prior linear algebra knowledge",
+    "section_context": "Fifth section, building on the finite-to-infinite transition. Students just saw that Cauchy sequences can fail to converge. Now we formalize completeness as the property that prevents this failure.",
+    "design_brief": "This lesson builds from concrete vectors to abstract Hilbert spaces. The shared domain model is in src/data/model.ts with Cauchy sequence functions (cauchySequenceSqrt2, rationalApproxSqrt2, isCauchyPair). Use soft muted colors: teal #62D0AD for committed digits, gray #94a3b8 for uncertain, red #ef4444 for failure states, green #22c55e for successful completion. Compare rationals (incomplete) vs reals (complete)."
+  }
+}

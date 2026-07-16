@@ -1,0 +1,97 @@
+{
+  "sectionId": "inner-products",
+  "learningObjective": "Understand inner products as a generalization of dot products that measure angles and lengths in abstract spaces. The aha moment is realizing that the same pair of vectors can have ANY angle between them depending on how you define the inner product — the vectors don't determine the geometry, the inner product does.",
+  "ahaMoment": "The same pair of vectors can have ANY angle between them depending on how you define the inner product — the vectors don't determine the geometry, the inner product does. Measurement itself is a choice, not an inherent property.",
+  "miniSpec": {
+    "title": "Reverse-Engineer the Inner Product Formula",
+    "narrative_wrapper": "The student sees two fixed vectors in standard Euclidean space and a target angle arc they want between them. They directly drag the angle arc to widen or narrow it, and the system reveals what inner product formula (displayed as a matrix or weighting scheme) would make those vectors have exactly that angle. As they explore different target angles, they discover that changing how you measure doesn't change the vectors themselves—only the geometry imposed on the space.",
+    "manipulated_variable": "The target angle measurement between two fixed vectors—student drags the angle arc itself to set a desired angle value, which inversely determines what inner product definition must be used",
+    "primary_visual_feedback": "As the angle arc is dragged wider or narrower, a matrix representation or set of weight coefficients updates in real-time alongside the arc, showing the inner product formula that produces exactly this angle; the arc snaps smoothly to the dragged position with numerical degree/radian readout",
+    "causal_chain_exposed": "Three live quantities appear: (1) the fixed vector components never change, (2) the inner product value ⟨u,v⟩ updates numerically, (3) the norm values ||u|| and ||v|| under the current inner product update, and (4) the formula cos(θ) = ⟨u,v⟩/(||u|| ||v||) shows all substituted values leading to the target angle",
+    "trace_strategy": "Previous angle positions leave faint ghost arcs with their corresponding inner product formulas labeled nearby, creating a visual catalog of 'different geometries on the same space' that accumulates as the student explores different target angles",
+    "aha_moment": "The same pair of vectors can have ANY angle between them depending on how you define the inner product—the vectors don't determine the geometry, the inner product does. Students realize measurement itself is a choice, not an inherent property.",
+    "lens": "inversion",
+    "novelty": 0.833,
+    "rubric_score": 4.82,
+    "recommended": true
+  },
+  "modelVariables": {
+    "ip_targetAngle": "Target angle in degrees that the student drags to set (30-150 range)",
+    "ip_vectorU": "First fixed vector [3, 1] - never changes",
+    "ip_vectorV": "Second fixed vector [1, 2] - never changes",
+    "ip_weightA": "Derived: weight coefficient 'a' in the inner product matrix [[a, 0], [0, b]]",
+    "ip_weightB": "Derived: weight coefficient 'b' in the inner product matrix",
+    "ip_innerProductValue": "Derived: the inner product ⟨u,v⟩ under current weighting",
+    "ip_normU": "Derived: ||u|| under current inner product",
+    "ip_normV": "Derived: ||v|| under current inner product",
+    "ip_cosTheta": "Derived: cos(θ) = ⟨u,v⟩/(||u|| ||v||)",
+    "ip_ghostAngles": "Array of previously visited angle positions for the trace"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, the angle is set to a non-standard value (not the Euclidean angle ~37°), posing the puzzle of what inner product gives this angle",
+      "expect": [
+        { "var": "ip_targetAngle", "op": "!=", "value": 37 }
+      ],
+      "visualCheck": "Angle arc shows a value different from the standard Euclidean angle, inviting exploration"
+    },
+    {
+      "id": "vectors-stay-fixed",
+      "description": "The vector components remain constant regardless of angle changes",
+      "setup": { "ip_targetAngle": 60 },
+      "action": { "var": "ip_targetAngle", "to": 120 },
+      "expect": [
+        { "var": "ip_vectorU", "op": "==", "value": [3, 1] },
+        { "var": "ip_vectorV", "op": "==", "value": [1, 2] }
+      ],
+      "visualCheck": "The two vector arrows remain in exactly the same positions"
+    },
+    {
+      "id": "inner-product-updates-with-angle",
+      "description": "Changing the target angle causes the inner product value to update",
+      "setup": { "ip_targetAngle": 60 },
+      "action": { "var": "ip_targetAngle", "to": 90 },
+      "expect": [
+        { "var": "ip_cosTheta", "op": "approx", "value": 0, "tolerance": 0.01 }
+      ],
+      "visualCheck": "At 90°, the cos(θ) display shows approximately 0"
+    },
+    {
+      "id": "aha-orthogonal-case",
+      "description": "At 90°, the inner product becomes zero (orthogonality), revealing that 'perpendicular' is defined by the inner product",
+      "setup": { "ip_targetAngle": 90 },
+      "expect": [
+        { "var": "ip_innerProductValue", "op": "approx", "value": 0, "tolerance": 0.5 }
+      ],
+      "visualCheck": "The inner product readout shows ≈0 and the formula shows cos(90°)=0"
+    },
+    {
+      "id": "acute-vs-obtuse",
+      "description": "Dragging from acute to obtuse angle shows inner product sign change",
+      "setup": { "ip_targetAngle": 60 },
+      "action": { "var": "ip_targetAngle", "to": 120 },
+      "expect": [
+        { "var": "ip_cosTheta", "op": "<", "value": 0 }
+      ],
+      "visualCheck": "The cos(θ) value becomes negative, and the formula reflects this"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "norms-always-positive",
+      "description": "Norms are always positive for non-zero vectors",
+      "expect": [
+        { "expr": "ip_normU > 0" },
+        { "expr": "ip_normV > 0" }
+      ]
+    },
+    {
+      "id": "angle-formula-consistent",
+      "description": "The computed angle from cos(θ) always matches the target angle",
+      "expect": [
+        { "expr": "abs(acos(ip_cosTheta) * 180 / 3.14159 - ip_targetAngle) < 2" }
+      ]
+    }
+  ]
+}

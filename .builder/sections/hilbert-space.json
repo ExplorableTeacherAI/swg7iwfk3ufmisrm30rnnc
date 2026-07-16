@@ -1,0 +1,35 @@
+{
+  "section_id": "hilbert-space",
+  "title": "Minimal Property Set Puzzle",
+  "status": "queued",
+  "detail": "",
+  "summary": "",
+  "verify_passed": null,
+  "is_revision": false,
+  "registered": false,
+  "issues": [],
+  "sdk_session_id": null,
+  "created_at": 1784178659.6455019,
+  "updated_at": 1784178659.645507,
+  "payload": {
+    "section_id": "hilbert-space",
+    "learning_objective": "Synthesize all conditions to understand what makes a Hilbert space and why these properties together are powerful. The aha moment is realizing that certain pairs of properties work together to enable convergence in ways that neither property achieves alone \u2014 completeness without inner product means you can't tell if a sequence is Cauchy; inner product without completeness means you can measure distance but the limit might not exist.",
+    "mini_spec": {
+      "title": "Minimal Property Set Puzzle",
+      "narrative_wrapper": "A sequence of points is trying to reach a target, but it's failing in strange ways\u2014bouncing away, spiraling endlessly, or simply stopping short. You must diagnose the problem by allocating exactly 3 'property tokens' among 8 possible mathematical properties. Only the correct minimal set of 3 will allow convergence. Each failed attempt shows you exactly why that combination was insufficient.",
+      "manipulated_variable": "Dragging exactly three circular tokens onto property slots (commutativity, associativity, inner product symmetry, positive-definiteness, completeness, etc.), which determines which axioms are active in the mathematical space",
+      "primary_visual_feedback": "As you drag a token toward a property slot, that property's region highlights and a preview animation shows what that property would enable: a vector operation appearing, a distance ruler activating, or holes in the space filling in. The sequence animation pauses until you place all three tokens, then resumes.",
+      "causal_chain_exposed": "When the sequence runs with your chosen properties, live annotations appear at the failure point: 'Cannot compute distance\u2014no inner product', 'Sequence is Cauchy but limit point missing\u2014space incomplete', or 'Cannot form linear combinations\u2014vector space axioms missing'. A diagnostic panel shows checkmarks for satisfied conditions and red X's with explanations for failed conditions.",
+      "trace_strategy": "Each attempt leaves a numbered snapshot thumbnail showing your three chosen properties and where the sequence failed. A success snapshot shows the complete convergence path with 'Critical combination' labeled, letting you compare successful and failed attempts side-by-side.",
+      "aha_moment": "Realizing that certain pairs of properties (like inner product + completeness) work together to enable convergence in ways that neither property achieves alone\u2014completeness without inner product means you can't tell if a sequence is Cauchy; inner product without completeness means you can measure distance but the limit might not exist in your space.",
+      "lens": "goal_constraint",
+      "novelty": 0.865,
+      "rubric_score": 5,
+      "recommended": true
+    },
+    "target_misconception": "The conditions are independent rather than working together synergistically \u2014 students don't see why all three properties (vector space, inner product, complete) are needed together",
+    "audience": "University students with no prior linear algebra knowledge",
+    "section_context": "Final section bringing everything together. Students understand vectors, vector spaces, inner products, infinite dimensions, and completeness individually. Now we show how all three conditions combine to create Hilbert spaces.",
+    "design_brief": "This lesson builds from concrete vectors to abstract Hilbert spaces. The shared domain model is in src/data/model.ts with all the vector and inner product operations. Use soft muted colors: teal #62D0AD for correct properties, red #ef4444 for failures, green #22c55e for success. This is the synthesis section \u2014 show how vector space + inner product + completeness combine to enable powerful theorems."
+  }
+}

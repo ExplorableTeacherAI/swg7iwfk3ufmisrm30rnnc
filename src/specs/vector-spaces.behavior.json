@@ -1,0 +1,108 @@
+{
+  "sectionId": "vector-spaces",
+  "learningObjective": "Understand vector space axioms by seeing what breaks when rules are violated. The aha moment is realizing that certain carefully chosen vector values cause spectacular contradictions in the broken space (like proving 0=1) while the healed space handles them gracefully.",
+  "ahaMoment": "Certain carefully chosen vector values cause spectacular contradictions in the broken space (like proving 0=1) while the healed space handles them gracefully, revealing that axioms aren't about making math 'neat' but about preventing logical impossibilities",
+  "miniSpec": {
+    "title": "Before-After Surgery: Axiom Healing",
+    "narrative_wrapper": "The right space starts broken: vectors behave erratically when you operate on them. The left space shows the 'healed' version where a single axiom has been surgically added back. You inject specific test cases (pick specific vectors and operations) into BOTH spaces simultaneously and watch the left space give consistent answers while the right space gives contradictory ones. The contrast shows exactly what the missing axiom prevented.",
+    "manipulated_variable": "The specific test case being injected: the student picks coordinates for specific vectors (v1, v2) and scalar values (a, b) that will be used in a predetermined axiom-testing expression, changing which computational scenario both spaces must handle",
+    "primary_visual_feedback": "Matching input vectors appear in both spaces simultaneously, then the operation animates step-by-step in parallel, with the right space reaching an equation like 'result A' ≠ 'result B' highlighted in red while the left shows 'result A' = 'result B' in green",
+    "causal_chain_exposed": "Equation panels below each space show the symbolic manipulation step-by-step, with each step labeled by which axiom justifies it; the right space shows a red 'CANNOT PROCEED' label at the step requiring the missing axiom",
+    "trace_strategy": "A 'contradiction gallery' accumulates at the bottom: each test case that exposed a problem gets saved as a thumbnail showing the contradictory results side-by-side, building evidence of the axiom's necessity",
+    "aha_moment": "Certain carefully chosen vector values cause spectacular contradictions in the broken space (like proving 0=1) while the healed space handles them gracefully, revealing that axioms aren't about making math 'neat' but about preventing logical impossibilities",
+    "lens": "comparison",
+    "novelty": 0.858,
+    "rubric_score": 5,
+    "recommended": true
+  },
+  "modelVariables": {
+    "vs_v1_x": "x-coordinate of test vector v1, student-controlled",
+    "vs_v1_y": "y-coordinate of test vector v1, student-controlled",
+    "vs_v2_x": "x-coordinate of test vector v2, student-controlled",
+    "vs_v2_y": "y-coordinate of test vector v2, student-controlled",
+    "vs_scalar": "scalar multiplier for axiom tests, student-controlled",
+    "vs_axiom": "which axiom is being tested (distributive, identity, inverse)",
+    "vs_healed_result_x": "derived: x-component of result in healed space",
+    "vs_healed_result_y": "derived: y-component of result in healed space",
+    "vs_broken_result_a_x": "derived: x-component of first path result in broken space",
+    "vs_broken_result_a_y": "derived: y-component of first path result in broken space",
+    "vs_broken_result_b_x": "derived: x-component of second path result in broken space",
+    "vs_broken_result_b_y": "derived: y-component of second path result in broken space",
+    "vs_is_contradiction": "derived: boolean - do the two broken paths give different results?",
+    "vs_step": "derived: current animation step (0-4)",
+    "vs_playing": "boolean: is the step-by-step animation playing"
+  },
+  "assertions": [
+    {
+      "id": "initial-state-poses-problem",
+      "description": "On load, the visualization shows both spaces but no test has been run yet - the contradiction is not yet revealed, inviting the student to inject a test",
+      "expect": [
+        { "var": "vs_step", "op": "==", "value": 0 },
+        { "var": "vs_is_contradiction", "op": "==", "value": false }
+      ],
+      "visualCheck": "Both spaces are visible, showing placeholder state with 'Inject test case' invitation"
+    },
+    {
+      "id": "distributive-axiom-violation-detected",
+      "description": "When testing distributive axiom c(v1+v2) vs cv1+cv2 in broken space, non-trivial vectors produce different results",
+      "setup": {
+        "vs_v1_x": 2,
+        "vs_v1_y": 1,
+        "vs_v2_x": 1,
+        "vs_v2_y": 2,
+        "vs_scalar": 2,
+        "vs_axiom": "distributive"
+      },
+      "action": { "var": "vs_step", "to": 4 },
+      "expect": [
+        { "var": "vs_is_contradiction", "op": "==", "value": true }
+      ],
+      "visualCheck": "Right (broken) space shows red inequality sign between the two computation paths; left (healed) space shows green equality"
+    },
+    {
+      "id": "healed-space-always-consistent",
+      "description": "The healed space produces equal results for both computation paths regardless of input",
+      "setup": {
+        "vs_v1_x": 3,
+        "vs_v1_y": -1,
+        "vs_v2_x": -2,
+        "vs_v2_y": 4,
+        "vs_scalar": 3,
+        "vs_axiom": "distributive",
+        "vs_step": 4
+      },
+      "action": { "var": "vs_v1_x", "to": 5 },
+      "expect": [
+        { "var": "vs_healed_result_x", "op": "approx", "value": 9, "tolerance": 0.01 },
+        { "var": "vs_healed_result_y", "op": "approx", "value": 9, "tolerance": 0.01 }
+      ],
+      "visualCheck": "Left space shows consistent green equality for both paths"
+    },
+    {
+      "id": "zero-vector-case-reveals-identity-axiom",
+      "description": "Testing with zero vector in broken space without identity axiom fails to return the original vector",
+      "setup": {
+        "vs_v1_x": 3,
+        "vs_v1_y": 2,
+        "vs_v2_x": 0,
+        "vs_v2_y": 0,
+        "vs_scalar": 1,
+        "vs_axiom": "identity"
+      },
+      "action": { "var": "vs_step", "to": 4 },
+      "expect": [
+        { "var": "vs_is_contradiction", "op": "==", "value": true }
+      ],
+      "visualCheck": "Broken space shows v + 0 ≠ v, healed space shows v + 0 = v in green"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "healed-always-equal",
+      "description": "In the healed space, both computation paths always produce the same result",
+      "expect": [
+        { "expr": "abs(vs_healed_result_x - vs_healed_result_x) < 0.001" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "section_id": "finite-to-infinite",
+  "title": "Sketch the Limit Location",
+  "status": "queued",
+  "detail": "",
+  "summary": "",
+  "verify_passed": null,
+  "is_revision": false,
+  "registered": false,
+  "issues": [],
+  "sdk_session_id": null,
+  "created_at": 1784178522.269078,
+  "updated_at": 1784178522.269092,
+  "payload": {
+    "section_id": "finite-to-infinite",
+    "learning_objective": "Understand why infinite-dimensional spaces require additional care and behave differently from finite ones. The aha moment is realizing that a sequence can be Cauchy (getting arbitrarily close together) yet have its limit fall outside the space entirely \u2014 the pattern of getting closer doesn't guarantee a destination exists where you're working.",
+    "mini_spec": {
+      "title": "Sketch the Limit Location",
+      "narrative_wrapper": "A Cauchy sequence is shown animating in a visualized space, with terms getting closer together. Before the sequence completes, it pauses and the student must sketch or place a marker where they predict the limit point will appear. When they click \"resolve,\" the system reveals whether that location is actually inside or outside the space boundaries, exposing holes in incomplete spaces.",
+      "manipulated_variable": "The predicted location of the limit point\u2014the student clicks or drags to position a target marker in 2D or 3D space, directly controlling their guess about where the sequence converges to",
+      "primary_visual_feedback": "As the student drags the limit marker, proximity rings appear around the last few sequence terms showing how far their guess is from the \"cluster region\"; the marker snaps to a grid or leaves a placement shadow, and distance measurements update continuously",
+      "causal_chain_exposed": "After placement, the sequence continues animating term-by-term toward the predicted location; a \"membership checker\" visualization (like a boundary glow or color fill) indicates whether each approaching position is inside the space; finally the true limit appears with a membership verdict (IN/OUT) and distance from the student's guess",
+      "trace_strategy": "The student's prediction marker remains fixed as a ghost/outline while the actual limit appears in contrasting color; both are connected by a dashed \"prediction error\" line; the full sequence path persists showing the approach trajectory, making the boundary-crossing moment permanently visible",
+      "aha_moment": "A sequence can be Cauchy (getting arbitrarily close together) yet have its limit fall outside the space entirely\u2014the pattern of getting closer doesn't guarantee a destination exists where you're working",
+      "lens": "prediction_first",
+      "novelty": 0.825,
+      "rubric_score": 4.45,
+      "recommended": true
+    },
+    "target_misconception": "Infinite dimensions are just 'more of the same' as finite dimensions - students don't realize that convergence and completeness become non-trivial",
+    "audience": "University students with no prior linear algebra knowledge",
+    "section_context": "Fourth section, the critical bridge. Students understand vectors, vector spaces, and inner products. Now we transition to infinite dimensions, motivating why completeness matters for Hilbert spaces.",
+    "design_brief": "This lesson builds from concrete vectors to abstract Hilbert spaces. The shared domain model is in src/data/model.ts with sequence functions (cauchySequenceSqrt2, partialSum, convergentSequence, etc.). Use soft muted colors: teal #62D0AD for sequence points, indigo #8E90F5 for prediction marker, red #ef4444 for OUT membership, green #22c55e for IN membership. Show the space boundary clearly."
+  }
+}
